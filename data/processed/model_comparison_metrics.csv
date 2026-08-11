@@ -1,0 +1,5 @@
+Model,CV ROC-AUC,Test ROC-AUC,Accuracy,Precision,Recall,F1-Score
+Logistic Regression Baseline,0.9999,0.9996,0.9904,0.9864,0.9932,0.9898
+Random Forest (Bagging),1.0,1.0,1.0,1.0,1.0,1.0
+XGBoost (Boosting),1.0,1.0,0.9968,1.0,0.9932,0.9966
+Stacking Ensemble,1.0,1.0,0.9936,0.9932,0.9932,0.9932
