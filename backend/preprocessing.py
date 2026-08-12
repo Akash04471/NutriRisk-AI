@@ -42,8 +42,13 @@ class DomainFeatureEngineer(BaseEstimator, TransformerMixin):
         
         return X
 
-# Register module aliases so joblib can unpickle src.preprocessing.DomainFeatureEngineer seamlessly
-if 'src' not in sys.modules:
-    sys.modules['src'] = types.ModuleType('src')
-sys.modules['src.preprocessing'] = sys.modules[__name__]
-sys.modules['preprocessing'] = sys.modules[__name__]
+# Register module aliases so joblib can unpickle DomainFeatureEngineer under any module path
+curr_mod = sys.modules[__name__]
+for mod_name in ['src', 'ml', 'ml.src', 'backend']:
+    if mod_name not in sys.modules:
+        sys.modules[mod_name] = types.ModuleType(mod_name)
+
+sys.modules['src.preprocessing'] = curr_mod
+sys.modules['ml.src.preprocessing'] = curr_mod
+sys.modules['preprocessing'] = curr_mod
+sys.modules['backend.preprocessing'] = curr_mod
