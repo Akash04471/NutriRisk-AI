@@ -53,6 +53,7 @@ def predict_nutritional_risk(profile: NutritionalProfileInput):
     try:
         res = predictor_service.predict(profile)
         explanation = explainer_service.explain_instance(predictor_service.pipeline, res["df_input"])
+        exp_dict = explanation.model_dump() if hasattr(explanation, "model_dump") else explanation
 
         return PredictionResponse(
             risk_class=res["risk_class"],
@@ -60,7 +61,7 @@ def predict_nutritional_risk(profile: NutritionalProfileInput):
             probability=res["probability"],
             bmi=res["bmi"],
             dietary_quality_index=res["dietary_quality_index"],
-            explanation=explanation,
+            explanation=exp_dict,
             model_name="Random Forest / Stacking Ensemble"
         )
     except RuntimeError as re:

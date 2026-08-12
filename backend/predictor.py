@@ -6,9 +6,11 @@ import numpy as np
 try:
     from backend.config import MODEL_PATH
     from backend.schemas import NutritionalProfileInput
+    from backend.preprocessing import DomainFeatureEngineer
 except ModuleNotFoundError:
     from config import MODEL_PATH
     from schemas import NutritionalProfileInput
+    from preprocessing import DomainFeatureEngineer
 
 class PredictorService:
     def __init__(self, model_path: str = MODEL_PATH):
