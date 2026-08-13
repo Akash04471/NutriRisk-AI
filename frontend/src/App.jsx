@@ -49,7 +49,7 @@ const App = () => {
         const info = await getModelInfo();
         setModelInfo(info);
       } catch (err) {
-        console.error('Failed to load model metrics:', err);
+        console.warn('Failed to load model metrics:', err.message);
       }
     };
     checkBackend();
@@ -72,9 +72,15 @@ const App = () => {
       }, 100);
     } catch (err) {
       console.error('Prediction submission error:', err);
-      setErrorMessage(
-        err.response?.data?.detail || 'Unable to connect to NutriRisk AI FastAPI backend. Ensure uvicorn main:app is running.'
-      );
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setErrorMessage(
+          'Backend server response timed out. Free-tier backend instances (e.g. Render) spin down when inactive and take 30-60 seconds to wake up. Please wait a moment and click "Analyze Nutritional Risk" again.'
+        );
+      } else {
+        setErrorMessage(
+          err.response?.data?.detail || 'Unable to connect to NutriRisk AI FastAPI backend. Please verify that the backend server is running and VITE_API_BASE_URL environment variable is set in Vercel.'
+        );
+      }
     } finally {
       setIsLoading(false);
     }
