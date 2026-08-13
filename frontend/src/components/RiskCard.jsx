@@ -12,12 +12,10 @@ const RiskCard = ({ result }) => {
 
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 custom-shadow space-y-6">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-        <div>
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Screening Risk Result</span>
-          <h3 className="text-2xl font-extrabold text-slate-900 font-outfit">Your Nutritional Risk</h3>
-        </div>
-        <span className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded-full">
+      <div className="flex flex-col items-center justify-center text-center border-b border-slate-100 pb-4 space-y-1.5">
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Screening Risk Result</span>
+        <h3 className="text-2xl font-extrabold text-slate-900 font-outfit">Your Nutritional Risk</h3>
+        <span className="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded-full mt-1">
           Engine: {model_name || 'Stacking Ensemble'}
         </span>
       </div>
